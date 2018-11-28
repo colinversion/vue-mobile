@@ -5,14 +5,11 @@ import App from './App'
 import router from './router'
 import store from '@/store'
 
-// 阿里移动端适配方案
 import 'lib-flexible'
-
+import Cube from 'cube-ui'
 import api from '@/api'
-import MintUI from 'mint-ui'
-import 'mint-ui/lib/style.css'
 
-Vue.use(MintUI)
+Vue.use(Cube)
 Vue.prototype.$api = api
 
 Vue.config.productionTip = false
