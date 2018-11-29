@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="login-container">
         <form class="login-form">
           <div class="form-item">
             <label>账号：</label>
@@ -36,13 +36,31 @@ export default {
   },
   methods: {
     handleLogin () {
-      this.$store.dispatch('LoginByUsername', this.loginForm).then(res => {})
+      this.$loading.show()
+      this.$store.dispatch('LoginByUsername', this.loginForm).then(res => {
+        this.$loading.hide()
+        if (res.status === '100000') {
+          this.$router.push({ path: '/' })
+        } else {
+          this.$createDialog({
+            type: 'alert',
+            content: res.message,
+            showClose: true
+          }).show()
+        }
+      }).catch(err => {
+        this.$loading.hide()
+        console.log(err)
+      })
     }
   }
 }
 </script>
 
 <style scoped lang='stylus' rel='stylesheet/stylus'>
+.login-container{
+  height 100vh;
+}
 .login-form{
   padding: 400px 100px 100px;
   .form-item{

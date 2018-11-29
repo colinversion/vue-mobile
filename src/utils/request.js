@@ -4,7 +4,7 @@ import router from '@/router'
 
 const service = axios.create({
   baseURL: process.env.BASE_API,
-  timeout: 5000
+  timeout: 10000
 })
 
 // request interceptor
@@ -20,14 +20,14 @@ service.interceptors.request.use(
 )
 
 // response interceptor
-service.interceptors.request.use(
+service.interceptors.response.use(
   response => {
     if (response.data && response.data.status === '110002') {
       store.dispatch('FedLogOut').then(() => {
         router.push({ path: '/login' })
       })
     }
-    return response
+    return response.data
   },
   error => {
     console.log(error)

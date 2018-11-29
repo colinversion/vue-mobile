@@ -3,6 +3,7 @@
 </template>
 
 <script type='text/ecmascript-6'>
+import { getToken } from '@/utils/auth'
 export default {
   name: 'Personal',
   data () {
@@ -14,8 +15,10 @@ export default {
   },
   methods: {
     checkLogin () {
-      if (!this.$store.getters.user.token) {
-        this.$router.push('/login')
+      if (!getToken()) {
+        this.$store.dispatch('FedLogOut').then(() => {
+          this.$router.push('/login')
+        })
       }
     }
   }

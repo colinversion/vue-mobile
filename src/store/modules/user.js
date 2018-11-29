@@ -24,9 +24,9 @@ const user = {
         api.login.login(username, userInfo.password).then(response => {
           if (response.status === '100000') {
             commit('SET_USER', response.message)
-            commit('SET_TOKEN', response.message.sessonId)
+            commit('SET_TOKEN', response.message.sessionId)
             setUser(response.message)
-            setToken(response.message.sessonId)
+            setToken(response.message.sessionId)
           }
           return resolve(response)
         }).catch(error => {
