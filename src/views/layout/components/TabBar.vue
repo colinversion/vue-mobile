@@ -38,7 +38,26 @@ export default {
       ]
     }
   },
+  mounted () {
+    this.getSelectedDefault(this.$route)
+  },
+  watch: {
+    $route (to) {
+      this.getSelectedDefault(to)
+    }
+  },
   methods: {
+    getSelectedDefault (route) {
+      if (route.path === '' || route.path === '/') {
+        this.selectedDefault = '首页'
+        return
+      }
+      this.tabs.forEach(item => {
+        if (item.path === route.path) {
+          this.selectedDefault = item.label
+        }
+      })
+    },
     handelChange (item) {
       this.selectedDefault = item.label
       this.$router.push(item.path)
